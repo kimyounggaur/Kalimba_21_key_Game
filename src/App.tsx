@@ -80,6 +80,7 @@ const initView: SessionView = {
 };
 export default function App() {
   const [page, setPage] = useState<Page>("play");
+  const [headerMenu, setHeaderMenu] = useState<"mode" | "controls" | null>(null);
   const [selected, setSelected] = useState(songs[0]);
   const [mode, setMode] = useState<PlayMode>("free");
   const [tempo, setTempo] = useState(1);
@@ -284,6 +285,7 @@ export default function App() {
     }
   };
   const navigate = (p: Page) => {
+    setHeaderMenu(null);
     startSequence.current++;
     session.current?.dispose();
     session.current = null;
@@ -499,6 +501,7 @@ export default function App() {
     session.current?.pluck(midi, perfMs);
   };
   const openLesson = (id: string) => {
+    setHeaderMenu(null);
     const l = lessons.find((l) => l.id === id)!;
     const song = lessonSong(l, selected.id);
     setSelected(song);
@@ -512,6 +515,7 @@ export default function App() {
     });
   };
   const chooseSong = (song: Song) => {
+    setHeaderMenu("controls");
     session.current?.dispose();
     session.current = null;
     setSelected(song);
@@ -530,6 +534,7 @@ export default function App() {
     fn();
   };
   const replay = (m = mode) => {
+    setHeaderMenu(null);
     void start(
       m,
       selected,
@@ -622,6 +627,7 @@ export default function App() {
           ))}
         </nav>
         <div className="header-tools">
+          {page === "play" && <><button className="header-menu-button" aria-expanded={headerMenu === "mode"} onClick={() => setHeaderMenu(headerMenu === "mode" ? null : "mode")}>연주 모드</button><button className="header-menu-button" aria-expanded={headerMenu === "controls"} onClick={() => setHeaderMenu(headerMenu === "controls" ? null : "controls")}>연주 설정</button><button className="icon-button" aria-label="도움말" onClick={() => { session.current?.pause(); setHelp(true); }}><HelpCircle size={19}/></button></>}
           <span className="local-badge">
             <span />이 기기에 저장
           </span>
@@ -683,7 +689,8 @@ export default function App() {
               </button>
             </div>
             <div className="play-workspace">
-              <aside className="left-rail">
+              <aside className={`left-rail header-popover ${headerMenu === "mode" ? "menu-open" : ""}`} aria-label="연주 모드 메뉴">
+                <button className="popover-close" onClick={() => setHeaderMenu(null)} aria-label="연주 모드 메뉴 닫기"><X size={18}/></button>
                 <div className="section-label">PLAY MODE</div>
                 <div className="mode-list">
                   {(["free", "wait", "challenge"] as const).map((m, i) => (
@@ -698,6 +705,7 @@ export default function App() {
                         setMode(m);
                         setView(initView);
                         setLessonId(null);
+                        setHeaderMenu(m === "free" ? null : "controls");
                       }}
                     >
                       <span className="mode-icon">
@@ -827,7 +835,8 @@ export default function App() {
                   </span>
                 </div>
               </section>
-              <aside className="practice-panel">
+              <aside className={`practice-panel header-popover ${headerMenu === "controls" ? "menu-open" : ""}`} aria-label="연주 설정 메뉴">
+                <button className="popover-close" onClick={() => setHeaderMenu(null)} aria-label="연주 설정 메뉴 닫기"><X size={18}/></button>
                 <div className="section-label">
                   {mode === "free" ? "A MOMENT FOR YOU" : "YOUR PRACTICE"}
                 </div>
@@ -966,6 +975,7 @@ export default function App() {
                               s.config.metronome = metronome;
                               s.config.offsetMs = offset;
                               s.config.policy = policy;
+                              setHeaderMenu(null);
                               void s.resume();
                             }
                           }}

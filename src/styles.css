@@ -2135,3 +2135,21 @@ footer button {
     width: calc(100% + 20px);
   }
 }
+/* Keep the instrument visible; supporting controls open from the header. */
+.app:has(.play-workspace) .page-intro,.app:has(.play-workspace) .below-play,.app footer{display:none}
+.app:has(.play-workspace)>main{padding:12px;min-height:calc(100dvh - 96px)}
+.play-workspace{display:block;min-height:0}
+.instrument-panel{min-height:calc(100dvh - 120px);width:100%;padding:12px 20px;}
+.physical-instrument{width:min(100%,calc((100dvh - 250px)*.775),630px)}
+.header-menu-button{background:#e8eee2;border-radius:8px;padding:10px 12px;font-size:11px;white-space:nowrap;color:#3f6651}
+.header-menu-button[aria-expanded=true]{background:#3f6651;color:white}
+.header-popover{display:none!important;position:fixed;top:82px;right:24px;z-index:50;width:min(340px,calc(100vw - 24px));max-height:calc(100dvh - 96px);overflow:auto;background:#faf9f1;border:1px solid #dce4d6;border-radius:14px;padding:28px 20px 18px!important;box-shadow:0 18px 55px #243c3333}
+.header-popover.menu-open{display:flex!important;flex-direction:column}
+.header-popover .rail-note,.header-popover .tuning-label{display:none}
+.header-popover .mode-list{display:flex;flex-direction:column;margin-top:8px}
+.header-popover .mode-list button{justify-content:flex-start;min-height:60px}
+.header-popover .mode-list small{display:block}
+.popover-close{position:absolute;right:8px;top:8px;background:transparent;color:#58725d;padding:6px}
+.header-popover .volume-control{margin-top:20px}
+@media(max-width:900px){.site-header{gap:8px}.site-header nav{overflow-x:auto;justify-content:flex-start}.header-tools{gap:5px}.header-menu-button{padding:9px;font-size:10px}}
+@media(max-width:650px){.site-header{height:auto;min-height:100px;grid-template-rows:52px auto;gap:0}.site-header nav{min-height:45px}.header-tools{grid-column:2;grid-row:1;gap:2px}.header-tools .icon-button{width:30px;height:32px}.header-tools .header-menu-button{font-size:9px;padding:8px 6px}.brand{font-size:14px}.brand small{display:none}.brand-mark{width:27px;height:27px}.app:has(.play-workspace)>main{padding:6px;min-height:calc(100dvh - 105px)}.instrument-panel{min-height:calc(100dvh - 117px)}.header-popover{top:100px;right:6px;max-height:calc(100dvh - 110px)}.header-popover .mode-list{background:transparent;padding:0}.header-popover .mode-list button{justify-content:flex-start}.physical-instrument{width:min(100%,calc((100dvh - 250px)*.775))}}
