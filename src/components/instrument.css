@@ -1,0 +1,346 @@
+.instrument {
+  width: 100%;
+  position: relative;
+  isolation: isolate;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.physical-instrument {
+  position: relative;
+  margin: 0 auto;
+  width: min(100%, 530px);
+  aspect-ratio: 1587/2048;
+}
+.original-kalimba {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 25px 24px #1e342f20);
+  pointer-events: none;
+}
+.physical-glow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.physical-glow rect {
+  fill: transparent;
+  stroke: transparent;
+  transition: fill 0.1s;
+}
+.physical-glow .tine-target {
+  fill: #42c9ae77;
+  stroke: #e6fff5;
+  stroke-width: 7;
+}
+.physical-glow .tine-next {
+  fill: #ead18b44;
+}
+.physical-glow .tine-plucked {
+  fill: #f7c558cc;
+  stroke: #fff4cd;
+  stroke-width: 9;
+}
+.instrument-key {
+  touch-action: none;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  font: inherit;
+  color: #243c33;
+  overflow: visible;
+}
+.instrument-key:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+.instrument-key:focus-visible {
+  outline: 3px solid #d39125;
+  outline-offset: 3px;
+  z-index: 3;
+}
+.instrument-key--physical {
+  position: absolute;
+  background: transparent;
+  border: 0;
+  border-radius: 0 0 45% 45%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-direction: column;
+}
+.instrument-key--physical .note-label {
+  font-size: clamp(7px, 1.55vw, 15px);
+  padding: 2px 0;
+  background: #fff9e8;
+  box-shadow: 0 1px 4px #17291f33;
+  border-radius: 3px;
+  width: 96%;
+  line-height: 1.05;
+  margin-bottom: 25%;
+  font-weight: 800;
+}
+.instrument-key--physical .key-target-marker {
+  font-size: clamp(7px, 1.5vw, 13px);
+  color: #053f34;
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+  right: 0;
+}
+.instrument-key--physical .note-dots {
+  font-size: 0.5em;
+  line-height: 0.8;
+}
+.instrument-key--physical.is-target .note-label {
+  background: #176d59;
+  color: #fff;
+}
+.instrument-key--physical.is-plucked .note-label {
+  background: #f6c763;
+  color: #213b30;
+}
+.note-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.05;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+.note-dots {
+  font-size: 10px;
+  letter-spacing: 1px;
+  line-height: 10px;
+  height: 10px;
+}
+.note-label--letter,
+.note-label--solfege {
+  min-height: 35px;
+}
+.instrument-map-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  margin: 2px auto 20px;
+  max-width: 490px;
+}
+.instrument-minimap {
+  width: 115px;
+  height: 104px;
+  filter: drop-shadow(0 5px 5px #183c3020);
+  flex: none;
+}
+.instrument-map-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.instrument-map-copy > span {
+  font-size: 15px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+}
+.instrument-map-copy small {
+  font-size: 11px;
+  line-height: 1.5;
+  color: #718377;
+}
+.kalimba-pads {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: 2px;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  background: #607e70;
+  padding: 5px;
+  border-radius: 16px;
+  box-shadow: 0 14px 30px #284e3920;
+  box-sizing: border-box;
+}
+.instrument-key--pad {
+  min-width: 0;
+  height: 77px;
+  background: linear-gradient(105deg, #f8f5ed, #dfded9);
+  border: 1px solid #fff9;
+  border-bottom: 4px solid #b3b7ad;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 0;
+  transition:
+    background 0.1s,
+    transform 0.1s;
+}
+.instrument-key--pad .note-label {
+  font-size: 21px;
+}
+.key-position {
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: -0.035em;
+  color: #718175;
+  white-space: nowrap;
+}
+.key-position span {
+  font-size: 8px;
+  color: #8e998f;
+}
+.key-target-marker {
+  height: 10px;
+  font-size: 9px;
+  line-height: 10px;
+  display: block;
+  position: absolute;
+  top: 5px;
+  right: 6px;
+}
+.instrument-key--pad.is-target,
+.instrument-key--focus.is-target {
+  background: linear-gradient(115deg, #e0f4d9, #bad9ba);
+  border-color: #397e58;
+  box-shadow: inset 0 0 0 2px #4f91654d;
+}
+.instrument-key--pad.is-next:not(.is-target),
+.instrument-key--focus.is-next:not(.is-target) {
+  border-color: #c9a460;
+}
+.instrument-key--pad.is-plucked,
+.instrument-key--pad.is-held,
+.instrument-key--focus.is-plucked,
+.instrument-key--focus.is-held {
+  background: #edc875;
+  border-color: #b78c3b;
+  transform: translateY(2px);
+}
+.instrument-key--pad.is-target .key-target-marker,
+.instrument-key--focus.is-target .key-target-marker {
+  color: #31784d;
+}
+.focus-tines {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  min-height: 350px;
+  padding: 35px 0 15px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #7e9c8a, #567665);
+  border-radius: 22px;
+  box-shadow:
+    inset 0 0 0 1px #f4f2dd40,
+    0 16px 35px #2c4b3222;
+}
+.focus-bridge {
+  position: absolute;
+  top: 69px;
+  height: 18px;
+  background: linear-gradient(#f3e9d9, #c8c5bd);
+  border: 1px solid #736957;
+  border-radius: 5px;
+  left: 3%;
+  right: 3%;
+  box-shadow: 0 5px 7px #243d342c;
+  z-index: 2;
+  pointer-events: none;
+}
+.instrument-key--focus {
+  height: var(--tine-height, 280px);
+  width: 44px;
+  max-width: 44px;
+  min-width: 0;
+  flex: 1;
+  background: linear-gradient(90deg, #c8cecc, #f3f1e9 40%, #d8dbd5 90%);
+  border: 1px solid #b2b9ae;
+  border-bottom: 5px solid #aab2a6;
+  border-radius: 15px 15px 21px 21px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0 0 17px;
+  box-shadow: 3px 5px 6px #1e392d30;
+  transition:
+    transform 0.1s,
+    background 0.1s;
+}
+.instrument-key--focus .note-label {
+  font-size: 24px;
+}
+.instrument-key--focus .key-position {
+  font-size: 10px;
+}
+.instrument-key--focus .key-position span {
+  display: block;
+  font-size: 9px;
+}
+.instrument-key--focus .key-target-marker {
+  top: auto;
+  bottom: 73px;
+  left: 0;
+  right: 0;
+  font-size: 10px;
+}
+.instrument-access-hint {
+  text-align: center;
+  color: #8c9b8e;
+  font-size: 10px;
+  margin: 15px 0 0;
+  letter-spacing: 0.025em;
+}
+.reduce-motion .instrument-key {
+  transition: none !important;
+  transform: none !important;
+}
+@media (max-width: 359px) {
+  .kalimba-pads {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .instrument-key--pad {
+    height: 63px;
+  }
+  .instrument-map-row {
+    gap: 12px;
+  }
+  .instrument-minimap {
+    width: 90px;
+    height: 84px;
+  }
+}
+@media (max-width: 600px) {
+  .instrument-key--pad {
+    height: 69px;
+  }
+  .kalimba-pads {
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    gap: 2px;
+  }
+  .instrument-key--physical .note-label {
+    font-size: 8px;
+  }
+  .instrument-map-row {
+    margin-bottom: 16px;
+  }
+  .physical-instrument {
+    max-width: 380px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .instrument-key {
+    transition: none !important;
+    transform: none !important;
+  }
+}
